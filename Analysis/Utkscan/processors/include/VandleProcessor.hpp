@@ -86,6 +86,8 @@ protected:
     bool hasBig_; //!< True if big bars were requested in the Config
     bool hasMed_; //!< True if medium bars were requested in the Config
 
+    double qdcComp_;
+
     unsigned int numStarts_; //!< The number of starts set in the Config File
 private:
     /** Analyze the data for scenarios with Bar Starts; e.g. Double Beta
@@ -101,6 +103,6 @@ private:
 
     /** \return Returns the appropriate offset based off the VANDLE bar type
      * \param [in] type : The type of bar that we are dealing with */
-    unsigned int ReturnOffset(const std::string &type);
+    std::pair<unsigned int ,unsigned int >ReturnOffset(const std::string &type);
 };
 #endif
