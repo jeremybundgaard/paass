@@ -31,7 +31,10 @@ public:
     /** Default Constructor */
     VandleProcessor();
     /** Default Destructor */
-    ~VandleProcessor() {  TFile_ornl16->Close();};
+    ~VandleProcessor() {
+      TFile_ornl16->Write();
+      TFile_ornl16->Close();
+    };
     /** Declare the plots used in the analysis */
     virtual void DeclarePlots(void);
 
@@ -87,19 +90,23 @@ public:
     double vandle_rAmp=0;
     double vandle_lMaxAmpPos=0;
     double vandle_rMaxAmpPos=0;
+    double vandle_lAveBaseline=0;
+    double vandle_rAveBaseline=0;
     unsigned int vandle_barNum=0;
     double vandle_TAvg=0;
     double vandle_Corrected_TAvg=0;
     double vandle_TDiff=0;
     double vandle_Corrected_TDiff=0;
+
     double beta_QDC=0;
-    double beta_TOF=0;
     double beta_lSnR=0;
     double beta_rSnR=0;
     double beta_lAmp=0;
     double beta_rAmp=0;
     double beta_lMaxAmpPos=0;
     double beta_rMaxAmpPos=0;
+    double beta_lAveBaseline=0;
+    double beta_rAveBaseline=0;
     unsigned int beta_barNum=0;
     double beta_TAvg=0;
     double beta_Corrected_TAvg=0;
