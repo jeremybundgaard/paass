@@ -89,6 +89,9 @@ VandleProcessor::VandleProcessor(const std::vector<std::string> &typeList,
     TTree_ornl16->Branch("vandle_Corrected_TAvg",&vandle_Corrected_TAvg);
     TTree_ornl16->Branch("vandle_TDiff",&vandle_TDiff);
     TTree_ornl16->Branch("vandle_Corrected_TDiff",&vandle_Corrected_TDiff);
+    TTree_ornl16->Branch("vandle_ltrace",&vandle_ltrace);
+    TTree_ornl16->Branch("vandle_rtrace",&vandle_rtrace);
+
     TTree_ornl16->Branch("beta_QDC",&beta_QDC);
     TTree_ornl16->Branch("beta_lSnR",&beta_lSnR);
     TTree_ornl16->Branch("beta_rSnR",&beta_rSnR);
@@ -103,6 +106,8 @@ VandleProcessor::VandleProcessor(const std::vector<std::string> &typeList,
     TTree_ornl16->Branch("beta_Corrected_TAvg",&beta_Corrected_TAvg);
     TTree_ornl16->Branch("beta_TDiff",&beta_TDiff);
     TTree_ornl16->Branch("beta_Corrected_TDiff",&beta_Corrected_TDiff);
+    TTree_ornl16->Branch("beta_ltrace",&beta_ltrace);
+    TTree_ornl16->Branch("beta_rtrace",&beta_rtrace);
 
     associatedTypes.insert("vandle");
     plotMult_ = res;
@@ -353,6 +358,9 @@ void VandleProcessor::AnalyzeBarStarts(void) {
             vandle_Corrected_TAvg=bar.GetCorTimeAve();
             vandle_TDiff=bar.GetTimeDifference();
             vandle_Corrected_TDiff=bar.GetCorTimeDiff();
+            vandle_ltrace=bar.GetLeftSide().GetTrace();
+            vandle_rtrace=bar.GetRightSide().GetTrace();
+
 
             beta_lSnR=start.GetLeftSide().GetTrace().GetSignalToNoiseRatio();
             beta_rSnR=start.GetRightSide().GetTrace().GetSignalToNoiseRatio();
@@ -368,6 +376,9 @@ void VandleProcessor::AnalyzeBarStarts(void) {
             beta_Corrected_TAvg=start.GetCorTimeAve();
             beta_TDiff=start.GetTimeDifference();
             beta_Corrected_TDiff=start.GetCorTimeDiff();
+            beta_ltrace=start.GetLeftSide().GetTrace();
+            beta_rtrace=start.GetRightSide().GetTrace();
+
             printf("evtNumber:%d \n",evtNumber);
             TTree_ornl16->Fill();
 

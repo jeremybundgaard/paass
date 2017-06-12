@@ -24,6 +24,7 @@
 
 #include "TFile.h"
 #include "TTree.h"
+#include "TVector.h"
 
 /// Class to process VANDLE related events
 class VandleProcessor : public EventProcessor {
@@ -97,6 +98,8 @@ public:
     double vandle_Corrected_TAvg=0;
     double vandle_TDiff=0;
     double vandle_Corrected_TDiff=0;
+    std::vector<unsigned int> vandle_ltrace;
+    std::vector<unsigned int> vandle_rtrace;
 
     double beta_QDC=0;
     double beta_lSnR=0;
@@ -112,11 +115,8 @@ public:
     double beta_Corrected_TAvg=0;
     double beta_TDiff=0;
     double beta_Corrected_TDiff=0;
-
-    // TVector beta_ltrace;
-    // TVector beta_rtrace;
-    // TVector vandle_ltrace;
-    // TVector vandle_rtrace;
+    std::vector<unsigned int> beta_ltrace;
+    std::vector<unsigned int> beta_rtrace;
 
 
 protected:
