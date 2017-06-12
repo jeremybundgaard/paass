@@ -10,8 +10,11 @@
  */
 #include <fstream>
 #include <iostream>
-
 #include <cmath>
+
+#include "TTree.h"
+#include "TFile.h"
+
 
 #include "BarBuilder.hpp"
 #include "DammPlotIds.hpp"
@@ -67,6 +70,13 @@ VandleProcessor::VandleProcessor(const std::vector<std::string> &typeList,
                                  const double &res, const double &offset,
                                  const unsigned int &numStarts):
     EventProcessor(OFFSET, RANGE, "VandleProcessor") {
+
+    TFile_ornl16 = new TFile("TTree_ornl16.root","recreate");
+  	TTree_ornl16 = new TTree("TTree_ornl16","TTree_ornl16");
+
+    TTree_ornl16->Branch("tdiff",&tdiff);
+    TTree_ornl16->Branch("barNum",&barNum);
+
     associatedTypes.insert("vandle");
     plotMult_ = res;
     plotOffset_ = offset;
@@ -296,6 +306,9 @@ void VandleProcessor::AnalyzeBarStarts(void) {
             double stdMulti = 2; //! multiple above the std baseline the trace must be to be "valid"
 
             //cout<<"STD Left = "<<start.GetLeftSide().GetStdDevBaseline()<<endl;
+
+            // tdiff = (double)->time;
+
 
             if( BthresL >= (stdMulti * start.GetLeftSide().GetStdDevBaseline()) && BthresR >= (stdMulti * start.GetRightSide().GetStdDevBaseline())){
 

@@ -22,6 +22,9 @@
 #include "EventProcessor.hpp"
 #include "HighResTimingData.hpp"
 
+class TFile;
+class TTree;
+
 /// Class to process VANDLE related events
 class VandleProcessor : public EventProcessor {
 public:
@@ -35,7 +38,7 @@ public:
     /** Constructor taking a list of detector types as an argument
      * \param [in] typeList : the list of bar types that are in the analysis
      * \param [in] res : The resolution of the DAMM histograms
-     * \param [in] offset : The offset of the DAMM histograms 
+     * \param [in] offset : The offset of the DAMM histograms
      * \param [in] numStarts : number of starts we have to process */
     VandleProcessor(const std::vector<std::string> &typeList,
                     const double &res, const double &offset,
@@ -60,7 +63,7 @@ public:
                               const double &z0) {
         return((z0/corRadius)*TOF);
     }
-    
+
     /** \return the map of the build VANDLE bars */
     BarMap GetBars(void) {return(bars_);}
     /** \return true if we requested small bars in the xml */
@@ -69,6 +72,14 @@ public:
     bool GetHasMed(void) {return(hasMed_);}
     /** \return true if we requsted large bars in the xml */
     bool GetHasBig(void) {return(hasBig_);}
+
+
+    /** \root TTree */
+    TFile* TFile_ornl16;
+  	TTree* TTree_ornl16;
+
+    double tdiff;
+    unsigned int barNum;
 
 protected:
     BarMap bars_;//!< A map to hold all the bars
