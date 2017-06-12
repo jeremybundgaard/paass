@@ -12,9 +12,8 @@
 #include <iostream>
 #include <cmath>
 
-#include "TTree.h"
-#include "TFile.h"
-
+// #include "TTree.h"
+// #include "TFile.h"
 
 #include "BarBuilder.hpp"
 #include "DammPlotIds.hpp"
@@ -71,11 +70,36 @@ VandleProcessor::VandleProcessor(const std::vector<std::string> &typeList,
                                  const unsigned int &numStarts):
     EventProcessor(OFFSET, RANGE, "VandleProcessor") {
 
-    TFile_ornl16 = new TFile("TTree_ornl16.root","recreate");
+    TFile_ornl16 = new TFile("ornl16.root","recreate");
   	TTree_ornl16 = new TTree("TTree_ornl16","TTree_ornl16");
 
-    TTree_ornl16->Branch("tdiff",&tdiff);
-    TTree_ornl16->Branch("barNum",&barNum);
+    TTree_ornl16->Branch("evtNumber",&evtNumber);
+    TTree_ornl16->Branch("vandle_QDC",&vandle_QDC);
+    TTree_ornl16->Branch("vandle_TOF",&vandle_TOF);
+    TTree_ornl16->Branch("vandle_lSnR",&vandle_lSnR);
+    TTree_ornl16->Branch("vandle_rSnR",&vandle_rSnR);
+    TTree_ornl16->Branch("vandle_lAmp",&vandle_lAmp);
+    TTree_ornl16->Branch("vandle_rAmp",&vandle_rAmp);
+    TTree_ornl16->Branch("vandle_lMaxAmpPos",&vandle_lMaxAmpPos);
+    TTree_ornl16->Branch("vandle_rMaxAmpPos",&vandle_rMaxAmpPos);
+    TTree_ornl16->Branch("vandle_barNum",&vandle_barNum);
+    TTree_ornl16->Branch("vandle_TAvg",&vandle_TAvg);
+    TTree_ornl16->Branch("vandle_Corrected_TAvg",&vandle_Corrected_TAvg);
+    TTree_ornl16->Branch("vandle_TDiff",&vandle_TDiff);
+    TTree_ornl16->Branch("vandle_Corrected_TDiff",&vandle_Corrected_TDiff);
+    TTree_ornl16->Branch("beta_QDC",&beta_QDC);
+    TTree_ornl16->Branch("beta_TOF",&beta_TOF);
+    TTree_ornl16->Branch("beta_lSnR",&beta_lSnR);
+    TTree_ornl16->Branch("beta_rSnR",&beta_rSnR);
+    TTree_ornl16->Branch("beta_lAmp",&beta_lAmp);
+    TTree_ornl16->Branch("beta_rAmp",&beta_rAmp);
+    TTree_ornl16->Branch("beta_lMaxAmpPos",&beta_lMaxAmpPos);
+    TTree_ornl16->Branch("beta_rMaxAmpPos",&beta_rMaxAmpPos);
+    TTree_ornl16->Branch("beta_barNum",&beta_barNum);
+    TTree_ornl16->Branch("beta_TAvg",&beta_TAvg);
+    TTree_ornl16->Branch("beta_Corrected_TAvg",&beta_Corrected_TAvg);
+    TTree_ornl16->Branch("beta_TDiff",&beta_TDiff);
+    TTree_ornl16->Branch("beta_Corrected_TDiff",&beta_Corrected_TDiff);
 
     associatedTypes.insert("vandle");
     plotMult_ = res;
@@ -268,6 +292,8 @@ bool VandleProcessor::Process(RawEvent &event) {
     else
         AnalyzeStarts();
 
+    evtNumber++;
+
     EndProcess();
     return(true);
 }
@@ -307,7 +333,36 @@ void VandleProcessor::AnalyzeBarStarts(void) {
 
             //cout<<"STD Left = "<<start.GetLeftSide().GetStdDevBaseline()<<endl;
 
-            // tdiff = (double)->time;
+            // tdiff = (double)start.GetLeftSide().GetStdDevBaseline();
+
+            vandle_QDC=0;
+            vandle_TOF=0;
+            vandle_lSnR=0;
+            vandle_rSnR=0;
+            vandle_lAmp=0;
+            vandle_rAmp=0;
+            vandle_lMaxAmpPos=0;
+            vandle_rMaxAmpPos=0;
+            vandle_barNum=0;
+            vandle_TAvg=0;
+            vandle_Corrected_TAvg=0;
+            vandle_TDiff=0;
+            vandle_Corrected_TDiff=0;
+            beta_QDC=0;
+            beta_TOF=0;
+            beta_lSnR=0;
+            beta_rSnR=0;
+            beta_lAmp=0;
+            beta_rAmp=0;
+            beta_lMaxAmpPos=0;
+            beta_rMaxAmpPos=0;
+            beta_barNum=0;
+            beta_TAvg=0;
+            beta_Corrected_TAvg=0;
+            beta_TDiff=0;
+            beta_Corrected_TDiff=0;
+            printf("evtNumber:%d \n",evtNumber);
+            TTree_ornl16->Fill();
 
 
             if( BthresL >= (stdMulti * start.GetLeftSide().GetStdDevBaseline()) && BthresR >= (stdMulti * start.GetRightSide().GetStdDevBaseline())){

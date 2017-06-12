@@ -22,8 +22,8 @@
 #include "EventProcessor.hpp"
 #include "HighResTimingData.hpp"
 
-class TFile;
-class TTree;
+#include "TFile.h"
+#include "TTree.h"
 
 /// Class to process VANDLE related events
 class VandleProcessor : public EventProcessor {
@@ -31,7 +31,7 @@ public:
     /** Default Constructor */
     VandleProcessor();
     /** Default Destructor */
-    ~VandleProcessor() {};
+    ~VandleProcessor() {  TFile_ornl16->Close();};
     /** Declare the plots used in the analysis */
     virtual void DeclarePlots(void);
 
@@ -76,10 +76,41 @@ public:
 
     /** \root TTree */
     TFile* TFile_ornl16;
-  	TTree* TTree_ornl16;
+    TTree* TTree_ornl16;
 
-    double tdiff;
-    unsigned int barNum;
+    unsigned int evtNumber=0;
+    double vandle_QDC=0;
+    double vandle_TOF=0;
+    double vandle_lSnR=0;
+    double vandle_rSnR=0;
+    double vandle_lAmp=0;
+    double vandle_rAmp=0;
+    double vandle_lMaxAmpPos=0;
+    double vandle_rMaxAmpPos=0;
+    unsigned int vandle_barNum=0;
+    double vandle_TAvg=0;
+    double vandle_Corrected_TAvg=0;
+    double vandle_TDiff=0;
+    double vandle_Corrected_TDiff=0;
+    double beta_QDC=0;
+    double beta_TOF=0;
+    double beta_lSnR=0;
+    double beta_rSnR=0;
+    double beta_lAmp=0;
+    double beta_rAmp=0;
+    double beta_lMaxAmpPos=0;
+    double beta_rMaxAmpPos=0;
+    unsigned int beta_barNum=0;
+    double beta_TAvg=0;
+    double beta_Corrected_TAvg=0;
+    double beta_TDiff=0;
+    double beta_Corrected_TDiff=0;
+
+    // TVector beta_ltrace;
+    // TVector beta_rtrace;
+    // TVector vandle_ltrace;
+    // TVector vandle_rtrace;
+
 
 protected:
     BarMap bars_;//!< A map to hold all the bars
