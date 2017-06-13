@@ -361,7 +361,6 @@ void VandleProcessor::AnalyzeBarStarts(void) {
             vandle_ltrace=bar.GetLeftSide().GetTrace();
             vandle_rtrace=bar.GetRightSide().GetTrace();
 
-
             beta_lSnR=start.GetLeftSide().GetTrace().GetSignalToNoiseRatio();
             beta_rSnR=start.GetRightSide().GetTrace().GetSignalToNoiseRatio();
             beta_lAmp=start.GetLeftSide().GetMaximumValue();
@@ -378,8 +377,8 @@ void VandleProcessor::AnalyzeBarStarts(void) {
             beta_Corrected_TDiff=start.GetCorTimeDiff();
             beta_ltrace=start.GetLeftSide().GetTrace();
             beta_rtrace=start.GetRightSide().GetTrace();
+            // printf("evtNumber:%d \n",evtNumber);
 
-            printf("evtNumber:%d \n",evtNumber);
             TTree_ornl16->Fill();
 
 
