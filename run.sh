@@ -1,6 +1,4 @@
-
 #!/bin/bash
-
 
 array=( "$@" )
 arraylength=${#array[@]}
