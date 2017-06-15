@@ -8,6 +8,7 @@
  *\author S. V. Paulauskas
  *\date 26 July 2010
  */
+
 #include <fstream>
 #include <iostream>
 #include <cmath>
@@ -70,44 +71,48 @@ VandleProcessor::VandleProcessor(const std::vector<std::string> &typeList,
                                  const unsigned int &numStarts):
     EventProcessor(OFFSET, RANGE, "VandleProcessor") {
 
-    TFile_ornl16 = new TFile("ornl16.root","recreate");
-  	TTree_ornl16 = new TTree("TTree_ornl16","TTree_ornl16");
+    std::string treefilename = ldf_name + "_tree.root";
+    TFile_tree = new TFile(treefilename.c_str(),"recreate");
 
-    TTree_ornl16->Branch("evtNumber",&evtNumber);
-    TTree_ornl16->Branch("vandle_QDC",&vandle_QDC);
-    TTree_ornl16->Branch("vandle_TOF",&vandle_TOF);
-    TTree_ornl16->Branch("vandle_lSnR",&vandle_lSnR);
-    TTree_ornl16->Branch("vandle_rSnR",&vandle_rSnR);
-    TTree_ornl16->Branch("vandle_lAmp",&vandle_lAmp);
-    TTree_ornl16->Branch("vandle_rAmp",&vandle_rAmp);
-    TTree_ornl16->Branch("vandle_lMaxAmpPos",&vandle_lMaxAmpPos);
-    TTree_ornl16->Branch("vandle_rMaxAmpPos",&vandle_rMaxAmpPos);
-    TTree_ornl16->Branch("vandle_lAveBaseline",&vandle_lAveBaseline);
-    TTree_ornl16->Branch("vandle_rAveBaseline",&vandle_rAveBaseline);
-    TTree_ornl16->Branch("vandle_barNum",&vandle_barNum);
-    TTree_ornl16->Branch("vandle_TAvg",&vandle_TAvg);
-    TTree_ornl16->Branch("vandle_Corrected_TAvg",&vandle_Corrected_TAvg);
-    TTree_ornl16->Branch("vandle_TDiff",&vandle_TDiff);
-    TTree_ornl16->Branch("vandle_Corrected_TDiff",&vandle_Corrected_TDiff);
-    TTree_ornl16->Branch("vandle_ltrace",&vandle_ltrace);
-    TTree_ornl16->Branch("vandle_rtrace",&vandle_rtrace);
+  	data_summary_tree = new TTree("data_summary_tree","data_summary_tree");
 
-    TTree_ornl16->Branch("beta_QDC",&beta_QDC);
-    TTree_ornl16->Branch("beta_lSnR",&beta_lSnR);
-    TTree_ornl16->Branch("beta_rSnR",&beta_rSnR);
-    TTree_ornl16->Branch("beta_lAmp",&beta_lAmp);
-    TTree_ornl16->Branch("beta_rAmp",&beta_rAmp);
-    TTree_ornl16->Branch("beta_lMaxAmpPos",&beta_lMaxAmpPos);
-    TTree_ornl16->Branch("beta_rMaxAmpPos",&beta_rMaxAmpPos);
-    TTree_ornl16->Branch("beta_lAveBaseline",&vandle_lAveBaseline);
-    TTree_ornl16->Branch("beta_rAveBaseline",&vandle_rAveBaseline);
-    TTree_ornl16->Branch("beta_barNum",&beta_barNum);
-    TTree_ornl16->Branch("beta_TAvg",&beta_TAvg);
-    TTree_ornl16->Branch("beta_Corrected_TAvg",&beta_Corrected_TAvg);
-    TTree_ornl16->Branch("beta_TDiff",&beta_TDiff);
-    TTree_ornl16->Branch("beta_Corrected_TDiff",&beta_Corrected_TDiff);
-    TTree_ornl16->Branch("beta_ltrace",&beta_ltrace);
-    TTree_ornl16->Branch("beta_rtrace",&beta_rtrace);
+    data_summary_tree->Branch("evtNumber",&evtNumber);
+    data_summary_tree->Branch("ldf_name",&ldf_name);
+
+    data_summary_tree->Branch("vandle_QDC",&vandle_QDC);
+    data_summary_tree->Branch("vandle_TOF",&vandle_TOF);
+    data_summary_tree->Branch("vandle_lSnR",&vandle_lSnR);
+    data_summary_tree->Branch("vandle_rSnR",&vandle_rSnR);
+    data_summary_tree->Branch("vandle_lAmp",&vandle_lAmp);
+    data_summary_tree->Branch("vandle_rAmp",&vandle_rAmp);
+    data_summary_tree->Branch("vandle_lMaxAmpPos",&vandle_lMaxAmpPos);
+    data_summary_tree->Branch("vandle_rMaxAmpPos",&vandle_rMaxAmpPos);
+    data_summary_tree->Branch("vandle_lAveBaseline",&vandle_lAveBaseline);
+    data_summary_tree->Branch("vandle_rAveBaseline",&vandle_rAveBaseline);
+    data_summary_tree->Branch("vandle_barNum",&vandle_barNum);
+    data_summary_tree->Branch("vandle_TAvg",&vandle_TAvg);
+    data_summary_tree->Branch("vandle_Corrected_TAvg",&vandle_Corrected_TAvg);
+    data_summary_tree->Branch("vandle_TDiff",&vandle_TDiff);
+    data_summary_tree->Branch("vandle_Corrected_TDiff",&vandle_Corrected_TDiff);
+    data_summary_tree->Branch("vandle_ltrace",&vandle_ltrace);
+    data_summary_tree->Branch("vandle_rtrace",&vandle_rtrace);
+
+    data_summary_tree->Branch("beta_QDC",&beta_QDC);
+    data_summary_tree->Branch("beta_lSnR",&beta_lSnR);
+    data_summary_tree->Branch("beta_rSnR",&beta_rSnR);
+    data_summary_tree->Branch("beta_lAmp",&beta_lAmp);
+    data_summary_tree->Branch("beta_rAmp",&beta_rAmp);
+    data_summary_tree->Branch("beta_lMaxAmpPos",&beta_lMaxAmpPos);
+    data_summary_tree->Branch("beta_rMaxAmpPos",&beta_rMaxAmpPos);
+    data_summary_tree->Branch("beta_lAveBaseline",&vandle_lAveBaseline);
+    data_summary_tree->Branch("beta_rAveBaseline",&vandle_rAveBaseline);
+    data_summary_tree->Branch("beta_barNum",&beta_barNum);
+    data_summary_tree->Branch("beta_TAvg",&beta_TAvg);
+    data_summary_tree->Branch("beta_Corrected_TAvg",&beta_Corrected_TAvg);
+    data_summary_tree->Branch("beta_TDiff",&beta_TDiff);
+    data_summary_tree->Branch("beta_Corrected_TDiff",&beta_Corrected_TDiff);
+    data_summary_tree->Branch("beta_ltrace",&beta_ltrace);
+    data_summary_tree->Branch("beta_rtrace",&beta_rtrace);
 
     associatedTypes.insert("vandle");
     plotMult_ = res;
@@ -379,7 +384,7 @@ void VandleProcessor::AnalyzeBarStarts(void) {
             beta_rtrace=start.GetRightSide().GetTrace();
             // printf("evtNumber:%d \n",evtNumber);
 
-            TTree_ornl16->Fill();
+            data_summary_tree->Fill();
 
 
             if( BthresL >= (stdMulti * start.GetLeftSide().GetStdDevBaseline()) && BthresR >= (stdMulti * start.GetRightSide().GetStdDevBaseline())){

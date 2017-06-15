@@ -22,9 +22,12 @@
 #include "EventProcessor.hpp"
 #include "HighResTimingData.hpp"
 
+#include <string>
+
 #include "TFile.h"
 #include "TTree.h"
 #include "TVector.h"
+
 
 /// Class to process VANDLE related events
 class VandleProcessor : public EventProcessor {
@@ -33,8 +36,8 @@ public:
     VandleProcessor();
     /** Default Destructor */
     ~VandleProcessor() {
-      TFile_ornl16->Write();
-      TFile_ornl16->Close();
+      TFile_tree->Write();
+      TFile_tree->Close();
     };
     /** Declare the plots used in the analysis */
     virtual void DeclarePlots(void);
@@ -79,10 +82,11 @@ public:
 
 
     /** \root TTree */
-    TFile* TFile_ornl16;
-    TTree* TTree_ornl16;
+    TFile* TFile_tree;
+    TTree* data_summary_tree;
 
     unsigned int evtNumber=0;
+    std::string ldf_name = Globals::get()->GetOutputFileName();
     double vandle_QDC=0;
     double vandle_TOF=0;
     double vandle_lSnR=0;

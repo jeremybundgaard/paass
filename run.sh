@@ -1,9 +1,28 @@
+
 #!/bin/bash
 
-outdir="ornl2016_`date +%d%b%y_%H%M.%S`"
+
+array=( "$@" )
+arraylength=${#array[@]}
+for (( i=1; i<${arraylength}+1; i++ ));
+do
+  if [[ "${array[$i-1]}" = "-c" ]]; then
+		config="${array[$i]}"
+		echo "config:  $config"
+	fi
+  if [[ "${array[$i-1]}" = "-i" ]]; then
+		infile="${array[$i]}"
+		echo "infile:  $infile"
+	fi
+done
+
+
+ldf=`basename $infile .ldf`
+outdir=${ldf}_date_`date +%d%b%y_%H%M.%S`
 mkdir $outdir
 cd $outdir
 
-~/paass/install/bin/utkscan -i /scratch3/ornl2016_vandle/micronet3/pixie16/ornl2016/ldf/rb/097rb_02.ldf --frequency 250 -f R34300 -c ~/paass/install/share/utkscan/cfgs/ornl/Vandle2016/analysis/Config-2TdelayTest.xml -o tmp 
+echo "~/paass/install/bin/utkscan -i $infile --frequency 250 -f R34300 -c $config -o $ldf -b"
+~/paass/install/bin/utkscan -i $infile --frequency 250 -f R34300 -c $config -o $ldf -b
 
 cd -
