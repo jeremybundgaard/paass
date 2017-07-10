@@ -29,6 +29,7 @@
 #include "TVector.h"
 
 
+
 /// Class to process VANDLE related events
 class VandleProcessor : public EventProcessor {
 public:
@@ -89,38 +90,44 @@ public:
     std::string ldf_name = Globals::get()->GetOutputFileName();
     double vandle_QDC=0;
     double vandle_TOF=0;
-    double vandle_lSnR=0;
-    double vandle_rSnR=0;
-    double vandle_lAmp=0;
-    double vandle_rAmp=0;
-    double vandle_lMaxAmpPos=0;
-    double vandle_rMaxAmpPos=0;
-    double vandle_lAveBaseline=0;
-    double vandle_rAveBaseline=0;
+    double vandle_left_SnR=0;
+    double vandle_right_SnR=0;
+    double vandle_left_Amp=0;
+    double vandle_right_Amp=0;
+    unsigned int vandle_n_left_traces=0;
+    unsigned int vandle_n_right_traces=0;
+    double vandle_left_MaxAmpPos=0;
+    double vandle_right_MaxAmpPos=0;
+    double vandle_left_AveBaseline=0;
+    double vandle_right_AveBaseline=0;
     unsigned int vandle_barNum=0;
     double vandle_TAvg=0;
     double vandle_Corrected_TAvg=0;
     double vandle_TDiff=0;
     double vandle_Corrected_TDiff=0;
-    std::vector<unsigned int> vandle_ltrace;
-    std::vector<unsigned int> vandle_rtrace;
+    std::vector<unsigned int> vandle_left_trace;
+    unsigned int vandle_left_trace_size=0;
+    std::vector<unsigned int> vandle_right_trace;
+    unsigned int vandle_right_trace_size=0;
 
     double beta_QDC=0;
-    double beta_lSnR=0;
-    double beta_rSnR=0;
-    double beta_lAmp=0;
-    double beta_rAmp=0;
-    double beta_lMaxAmpPos=0;
-    double beta_rMaxAmpPos=0;
-    double beta_lAveBaseline=0;
-    double beta_rAveBaseline=0;
+    double beta_left_SnR=0;
+    double beta_right_SnR=0;
+    double beta_left_Amp=0;
+    double beta_right_Amp=0;
+    unsigned int beta_n_left_traces=0;
+    unsigned int beta_n_right_traces=0;
+    double beta_left_MaxAmpPos=0;
+    double beta_right_MaxAmpPos=0;
+    double beta_left_AveBaseline=0;
+    double beta_right_AveBaseline=0;
     unsigned int beta_barNum=0;
     double beta_TAvg=0;
     double beta_Corrected_TAvg=0;
     double beta_TDiff=0;
     double beta_Corrected_TDiff=0;
-    std::vector<unsigned int> beta_ltrace;
-    std::vector<unsigned int> beta_rtrace;
+    std::vector<unsigned int> beta_left_trace;
+    std::vector<unsigned int> beta_right_trace;
 
 
 protected:
